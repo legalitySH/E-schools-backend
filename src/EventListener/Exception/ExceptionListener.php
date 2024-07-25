@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\EventListener;
+namespace App\EventListener\Exception;
 
 use App\Service\Logger\DatabaseLogger;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
