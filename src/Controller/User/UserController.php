@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class UserController extends AbstractController
 {
     #[Route('/api/me', methods: ['GET'])]
-    public function index(): Response
+    public function getAuthorizedUser(): Response
     {
         return $this->json([
             'username' => $this->getUser()->getUsername(),
@@ -19,4 +19,5 @@ class UserController extends AbstractController
             'email' => $this->getUser()->getEmail(),
         ]);
     }
+
 }
