@@ -26,3 +26,6 @@ services:
     App\Service\Logger\DatabaseLogger:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
+    App\Service\Paginator\PaginatorService:
+        arguments:
+            $entityManager: '@doctrine.orm.entity_manager'
