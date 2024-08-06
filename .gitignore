@@ -22,7 +22,7 @@ composer.phar
 ### PHPCodeSniffer ###
 # CodeSniffer
 phpcs.xml
-
+.env
 /vendor/*
 /wpcs/*
 
