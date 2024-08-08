@@ -10,3 +10,6 @@ api_refresh_token:
     path: /api/token/refresh
 api_token_invalidate:
     path: /api/token/invalidate
+auth_oauth_check:
+    path: /oauth/connect/{service}
+    controller: App\Controller\SecurityController::connect
