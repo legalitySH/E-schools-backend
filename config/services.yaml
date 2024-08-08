@@ -29,3 +29,14 @@ services:
     App\Service\Paginator\PaginatorService:
         arguments:
             $entityManager: '@doctrine.orm.entity_manager'
+    App\Service\JwtTokenProvider\JwtTokenProvider:
+        arguments:
+            $refreshTokenGenerator: '@gesdinet.jwtrefreshtoken.refresh_token_generator'
+            $refreshTokenManager: '@gesdinet.jwtrefreshtoken.refresh_token_manager'
+            $jwtTokenManager: '@lexik_jwt_authentication.jwt_manager'
+    App\Security\Authenticator\GoogleAuthenticator:
+        arguments:
+            $clientRegistry: '@knpu.oauth2.registry'
+            $entityManager: '@doctrine.orm.entity_manager'
+            $tokenProvider: '@App\Service\JwtTokenProvider\JwtTokenProvider'
+
