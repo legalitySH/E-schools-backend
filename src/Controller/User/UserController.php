@@ -19,5 +19,4 @@ class UserController extends AbstractController
             'email' => $this->getUser()->getEmail(),
         ]);
     }
-
 }

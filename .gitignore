@@ -23,6 +23,7 @@ composer.phar
 # CodeSniffer
 phpcs.xml
 .env
+.env.local
 /vendor/*
 /wpcs/*
 
