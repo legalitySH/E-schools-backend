@@ -29,6 +29,9 @@ security:
             jwt: ~
             logout:
                 path: api_token_invalidate
+        main:
+            custom_authenticators:
+                - App\Security\Authenticator\GoogleAuthenticator
 
 
     access_control:
