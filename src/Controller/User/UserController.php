@@ -14,6 +14,8 @@ class UserController extends AbstractController
     public function getAuthorizedUser(): Response
     {
         return $this->json([
+            'id' => $this->getUser()->getId(),
+            'client_id' => $this->getUser()->getClientId(),
             'username' => $this->getUser()->getUsername(),
             'role' => $this->getUser()->getRoles(),
             'email' => $this->getUser()->getEmail(),
