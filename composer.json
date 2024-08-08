@@ -13,6 +13,8 @@
     "doctrine/doctrine-migrations-bundle": "^3.3",
     "doctrine/orm": "*",
     "gesdinet/jwt-refresh-token-bundle": "*",
+    "knpuniversity/oauth2-client-bundle": "*",
+    "league/oauth2-google": "*",
     "lexik/jwt-authentication-bundle": "*",
     "nelmio/cors-bundle": "^2.5",
     "symfony/console": "6.4.*",
