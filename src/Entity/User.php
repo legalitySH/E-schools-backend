@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`users`')]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_CLIENT_ID', fields: ['clientId'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,6 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(name: 'client_id',nullable: true)]
+    private ?string $clientId = null;
     #[ORM\Column(length: 180)]
     #[Assert\NotBlank(message: 'Please enter an email')]
     #[Assert\Email(message: 'Please enter a valid email')]
@@ -33,7 +36,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = ['ROLE_NO_CHOSEN'];
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?string $password = null;
 
     #[Assert\NotBlank(message: 'Please enter a password')]
@@ -54,10 +57,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    public function getClientId(): ?int
+    {
+        return $this->clientId;
+    }
+
+    public function setClientId(?int $clientId): static
+    {
+        $this->clientId = $clientId;
+
+        return $this;
+    }
+
 
     public function getEmail(): ?string
     {
@@ -88,7 +105,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
@@ -114,6 +131,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-          $this->plainPassword = null;
+        $this->plainPassword = null;
     }
 }
