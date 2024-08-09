@@ -30,7 +30,7 @@ abstract class AbstractAuthenticator extends OAUTH2Authenticator
         $accessToken = $this->tokenProvider->getAccessTokenCookie($token->getUser());
         $refreshToken = $this->tokenProvider->getRefreshTokenCookie($token->getUser());
 
-        $redirectResponse = new RedirectResponse('http://localhost:3000');
+        $redirectResponse = new RedirectResponse($_ENV['CLIENT_URI_ADDRESS']);
         $redirectResponse->headers->setCookie($accessToken);
         $redirectResponse->headers->setCookie($refreshToken);
 
