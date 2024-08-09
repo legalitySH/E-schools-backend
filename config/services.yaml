@@ -39,4 +39,9 @@ services:
             $clientRegistry: '@knpu.oauth2.registry'
             $entityManager: '@doctrine.orm.entity_manager'
             $tokenProvider: '@App\Service\JwtTokenProvider\JwtTokenProvider'
+            $repository: '@App\Repository\UserRepository'
+    app.base_factory:
+        class: App\Factory\BaseFactory
+        arguments:
+            $normalizer: '@serializer.normalizer.object'
 
