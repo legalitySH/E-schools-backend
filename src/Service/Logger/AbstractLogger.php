@@ -49,5 +49,5 @@ abstract class AbstractLogger implements LoggerInterface
         $this->log(LogLevel::DEBUG, $message, $context);
     }
 
-    public abstract function log($level, $message, array $context = array()): void;
+    abstract public function log($level, $message, array $context = []): void;
 }
