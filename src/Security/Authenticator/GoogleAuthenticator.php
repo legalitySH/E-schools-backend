@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Security\Authenticator;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 use App\Service\JwtTokenProvider\JwtTokenProvider;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ObjectRepository;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
@@ -17,10 +20,18 @@ use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 final class GoogleAuthenticator extends AbstractAuthenticator
 {
     public const SERVICE_NAME = 'google';
+
+    /**
+     * @param ClientRegistry $clientRegistry
+     * @param EntityManagerInterface $entityManager
+     * @param JwtTokenProvider $tokenProvider
+     * @param UserRepository $repository
+     */
     public function __construct(
         private readonly ClientRegistry $clientRegistry,
         private readonly EntityManagerInterface $entityManager,
         protected readonly JwtTokenProvider $tokenProvider,
+        private readonly ServiceEntityRepositoryInterface $repository
     )
     {
         parent::__construct($this->tokenProvider);
@@ -36,7 +47,7 @@ final class GoogleAuthenticator extends AbstractAuthenticator
             new UserBadge($accessToken->getToken(), function () use ($accessToken, $client) {
                 $resourceOwner = $client->fetchUserFromToken($accessToken);
 
-                $existedUser = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $resourceOwner->getEmail()]);
+                $existedUser = $this->repository->findOneBy(['email' => $resourceOwner->getEmail()]);
 
                 if ($existedUser) {
                     return $existedUser;

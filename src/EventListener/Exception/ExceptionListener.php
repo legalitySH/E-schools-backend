@@ -29,8 +29,7 @@ class ExceptionListener
         JSON_PRETTY_PRINT
         ));
 
-        if ($exception instanceof HttpExceptionInterface)
-        {
+        if ($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
             $response->headers->replace($exception->getHeaders());
         } else {

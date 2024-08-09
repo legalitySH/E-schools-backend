@@ -13,7 +13,13 @@ class DatabaseLogger extends AbstractLogger
     {
     }
 
-    public function log($level, $message, array $context = array()): void
+    /**
+     * @param string $level
+     * @param string $message
+     * @param array<string,mixed> $context
+     * @return void
+     */
+    public function log($level, $message, array $context = []): void
     {
         $logEntry = (new LogEntry())
             ->setTimeStamp(new \DateTime())

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
-class RegisterController extends AbstractController
+final class RegisterController extends AbstractController
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -35,12 +35,10 @@ class RegisterController extends AbstractController
         $user->eraseCredentials();
         $user->setPassword($hashedPassword);
 
-        try{
+        try {
             $this->entityManager->persist($user);
             $this->entityManager->flush();
-        }
-        catch (\Exception $exception)
-        {
+        } catch (\Exception $exception) {
             return $this->json(['error' => 'User already exists !'], Response::HTTP_BAD_REQUEST);
         }
 

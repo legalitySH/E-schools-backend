@@ -17,7 +17,7 @@ class LogEntry
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(name: 'time_stamp', type: TYPES::DATETIME_MUTABLE)]
+    #[ORM\Column(name: 'time_stamp', type: Types::DATETIME_MUTABLE)]
     private \DateTimeInterface $timeStamp;
 
     #[ORM\Column]
