@@ -91,7 +91,7 @@ final class ApplicationService implements ApplicationServiceInterface
 
     /**
      * @param Request $request
-     * @return array<mixed>
+     * @return array
      */
     private function getRequestData(Request $request): array
     {
