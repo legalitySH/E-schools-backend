@@ -22,7 +22,7 @@ final class ApplicationReviewController extends AbstractController
 
     }
 
-    #[Route('/api/application/approve/id={id}')]
+    #[Route('/api/application/{id}/approve')]
     public function approveApplication(int $id): Response
     {
         try {
@@ -37,7 +37,7 @@ final class ApplicationReviewController extends AbstractController
         return new Response("Application with id $id was approved", Response::HTTP_OK);
     }
 
-    #[Route('/api/application/reject/id={id}')]
+    #[Route('/api/application/{id}/reject')]
     public function rejectApplication(int $id): Response
     {
         try {
