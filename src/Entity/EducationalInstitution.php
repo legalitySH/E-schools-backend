@@ -28,6 +28,8 @@ class EducationalInstitution
     #[ORM\OneToOne(targetEntity: Director::class, cascade: ['remove'])]
     #[ORM\JoinColumn(name: 'director_id', referencedColumnName: 'id', nullable: true)]
     private ?Director $director = null;
+    #[ORM\OneToOne(targetEntity: InstitutionType::class)]
+    private InstitutionType $type;
 
     public function getId(): ?int
     {
@@ -56,6 +58,16 @@ class EducationalInstitution
         $this->address = $address;
 
         return $this;
+    }
+
+    public function getType(): InstitutionType
+    {
+        return $this->type;
+    }
+
+    public function setType(InstitutionType $type): void
+    {
+        $this->type = $type;
     }
 
     public function getEmail(): string
