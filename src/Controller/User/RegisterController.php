@@ -4,44 +4,34 @@ declare(strict_types=1);
 
 namespace App\Controller\User;
 
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Dto\User\RegisterUserDto;
+use App\Service\User\Api\UserServiceInterface;
+use App\Service\User\Exception\UserExistsException;
+use App\Service\User\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormFactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/user', name: 'user_ ')]
 final class RegisterController extends AbstractController
 {
+    /** @param UserService $userService */
     public function __construct(
-        private readonly EntityManagerInterface $entityManager,
-        private readonly UserPasswordHasherInterface $passwordHasher
-    )
-    {
+        private readonly UserServiceInterface $userService
+    ) {
     }
 
-    #[Route('/api/register', methods: ['POST'])]
-    public function register(Request $request, FormFactoryInterface $formFactory): Response
+    #[Route('/register', name: 'register', methods: ['POST'])]
+    public function registerUser(#[MapRequestPayload] RegisterUserDto $registerUserDto): Response
     {
-        $requestData = json_decode($request->getContent(), true);
-
-        $user = (new User())
-            ->setEmail($requestData['email'])
-            ->setUsername($requestData['username']);
-
-        $hashedPassword = $this->passwordHasher->hashPassword($user, $requestData['plain_password']);
-        $user->eraseCredentials();
-        $user->setPassword($hashedPassword);
-
         try {
-            $this->entityManager->persist($user);
-            $this->entityManager->flush();
-        } catch (\Exception $exception) {
-            return $this->json(['error' => 'User already exists !'], Response::HTTP_BAD_REQUEST);
+            $this->userService->register($registerUserDto);
+        } catch (UserExistsException $e) {
+            return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        return new Response('Please log in to your account!', Response::HTTP_OK);
+        return new Response('User successfully registered', Response::HTTP_CREATED);
     }
 }

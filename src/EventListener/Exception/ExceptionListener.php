@@ -6,12 +6,13 @@ namespace App\EventListener\Exception;
 
 use App\Service\Logger\DatabaseLogger;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 
 #[AsEventListener(event: 'kernel.exception', method: 'onKernelException')]
-class ExceptionListener
+final class ExceptionListener
 {
     public function __construct(private readonly DatabaseLogger $logger)
     {
@@ -22,12 +23,9 @@ class ExceptionListener
         $exception = $event->getThrowable();
         $message = $exception->getMessage();
 
-        $response = (new Response())->setContent(
-            json_encode([
-                'error' => $message,
-            ],
-        JSON_PRETTY_PRINT
-        ));
+        $response = new JsonResponse([
+            'error' => $message,
+        ]);
 
         if ($exception instanceof HttpExceptionInterface) {
             $response->setStatusCode($exception->getStatusCode());
@@ -42,6 +40,7 @@ class ExceptionListener
 
     private function logErrorResponse(Response $response): void
     {
+        /** @var string $message */
         $message = $response->getStatusCode() !== 0 ? $response->getStatusCode() . ' ' . $response->getContent()
             : $response->getContent();
 

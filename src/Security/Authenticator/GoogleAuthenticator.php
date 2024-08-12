@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace App\Security\Authenticator;
 
 use App\Entity\User;
+use App\Repository\Api\RepositoryInterface;
 use App\Repository\UserRepository;
 use App\Service\JwtTokenProvider\JwtTokenProvider;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ObjectRepository;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use League\OAuth2\Client\Provider\GoogleUser;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
@@ -23,17 +22,14 @@ final class GoogleAuthenticator extends AbstractAuthenticator
 
     /**
      * @param ClientRegistry $clientRegistry
-     * @param EntityManagerInterface $entityManager
      * @param JwtTokenProvider $tokenProvider
      * @param UserRepository $repository
      */
     public function __construct(
         private readonly ClientRegistry $clientRegistry,
-        private readonly EntityManagerInterface $entityManager,
         protected readonly JwtTokenProvider $tokenProvider,
-        private readonly ServiceEntityRepositoryInterface $repository
-    )
-    {
+        private readonly RepositoryInterface $repository
+    ) {
         parent::__construct($this->tokenProvider);
     }
 
@@ -45,6 +41,7 @@ final class GoogleAuthenticator extends AbstractAuthenticator
 
         return new SelfValidatingPassport(
             new UserBadge($accessToken->getToken(), function () use ($accessToken, $client) {
+                /** @var GoogleUser $resourceOwner */
                 $resourceOwner = $client->fetchUserFromToken($accessToken);
 
                 $existedUser = $this->repository->findOneBy(['email' => $resourceOwner->getEmail()]);
@@ -54,12 +51,12 @@ final class GoogleAuthenticator extends AbstractAuthenticator
                 }
 
                 $user = new User();
-                $user->setEmail($resourceOwner->getEmail());
+
+                $user->setEmail($resourceOwner->getEmail() ?? '');
                 $user->setUsername($resourceOwner->getName());
+                $user->setClientId($resourceOwner->getId());
 
-
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
+                $this->repository->save($user);
 
                 return $user;
             })

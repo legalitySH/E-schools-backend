@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Service\Logger;
 
 use App\Entity\LogEntry;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\Api\RepositoryInterface;
+use App\Repository\LogEntryRepository;
 
-class DatabaseLogger extends AbstractLogger
+final class DatabaseLogger extends AbstractLogger
 {
-    public function __construct(private readonly EntityManagerInterface $entityManager)
+    /** @param LogEntryRepository $logsRepository  */
+    public function __construct(private readonly RepositoryInterface $logsRepository)
     {
     }
 
@@ -17,6 +19,7 @@ class DatabaseLogger extends AbstractLogger
      * @param string $level
      * @param string $message
      * @param array<string,mixed> $context
+     *
      * @return void
      */
     public function log($level, $message, array $context = []): void
@@ -26,7 +29,6 @@ class DatabaseLogger extends AbstractLogger
             ->setLevel($level)
             ->setMessage($message);
 
-        $this->entityManager->persist($logEntry);
-        $this->entityManager->flush();
+        $this->logsRepository->save($logEntry);
     }
 }

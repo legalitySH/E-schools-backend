@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\DirectorRepository;
@@ -21,13 +23,13 @@ class Director
     private ?User $user = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $fullName = null;
+    private string $fullName;
 
     #[ORM\Column(length: 64)]
-    private ?string $phoneNumber = null;
+    private string $phoneNumber;
 
     #[ORM\Column(length: 196)]
-    private ?string $email = null;
+    private string $email;
 
     public function getId(): ?int
     {
@@ -41,7 +43,7 @@ class Director
         return $this;
     }
 
-    public function getFullName(): ?string
+    public function getFullName(): string
     {
         return $this->fullName;
     }
@@ -53,7 +55,7 @@ class Director
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
     }
@@ -65,7 +67,7 @@ class Director
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -75,5 +77,15 @@ class Director
         $this->email = $email;
 
         return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): void
+    {
+        $this->user = $user;
     }
 }

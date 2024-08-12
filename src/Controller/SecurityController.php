@@ -18,12 +18,12 @@ final class SecurityController extends AbstractController
     #[Route('/oauth/connect/{service}', name: 'auth_oauth_check', methods: ['GET'])]
     public function connect(string $service, ClientRegistry $clientRegistry): RedirectResponse
     {
-        if (! in_array($service, array_keys(self::SCOPES), true)) {
+        if (!in_array($service, array_keys(self::SCOPES), true)) {
             throw $this->createNotFoundException();
         }
 
         return $clientRegistry
             ->getClient($service)
-            ->redirect(self::SCOPES[$service],[]);
+            ->redirect(self::SCOPES[$service], []);
     }
 }

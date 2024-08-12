@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use App\Repository\EducationalInstitutionRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EducationalInstitutionRepository::class)]
+#[ORM\UniqueConstraint(name: 'UC_INSTITUTION_EMAIL', fields: ['email'])]
 class EducationalInstitution
 {
     #[ORM\Id]
@@ -20,7 +23,7 @@ class EducationalInstitution
     private ?string $address = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $email = null;
+    private string $email;
 
     #[ORM\OneToOne(targetEntity: Director::class, cascade: ['remove'])]
     #[ORM\JoinColumn(name: 'director_id', referencedColumnName: 'id', nullable: true)]
@@ -55,12 +58,12 @@ class EducationalInstitution
         return $this;
     }
 
-    public function getEmail(): ?string
+    public function getEmail(): string
     {
         return $this->email;
     }
 
-    public function setEmail(?string $email): static
+    public function setEmail(string $email): static
     {
         $this->email = $email;
 

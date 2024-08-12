@@ -1,15 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\EducationalInstitution;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<EducationalInstitution>
- */
-class EducationalInstitutionRepository extends ServiceEntityRepository
+/** @extends AbstractRepository<EducationalInstitution> */
+
+final class EducationalInstitutionRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

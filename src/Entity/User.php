@@ -21,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(name: 'client_id',nullable: true)]
+    #[ORM\Column(name: 'client_id', nullable: true)]
     private ?string $clientId = null;
     #[ORM\Column(length: 180)]
     #[Assert\NotBlank(message: 'Please enter an email')]
@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Please enter a username')]
     #[Assert\Length(min: 3, max: 180)]
     private ?string $username = null;
-
+    /** @var array|string[] */
     #[ORM\Column]
     private array $roles = ['ROLE_NO_CHOSEN'];
 
@@ -63,12 +63,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getClientId(): ?int
+    public function getClientId(): ?string
     {
         return $this->clientId;
     }
 
-    public function setClientId(?int $clientId): static
+    public function setClientId(?string $clientId): static
     {
         $this->clientId = $clientId;
 
@@ -90,7 +90,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getUserIdentifier(): string
     {
-        return (string) $this->email;
+        return (string)$this->email;
     }
 
     public function getRoles(): array
@@ -98,6 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->roles;
     }
 
+    /** @param string[] $roles */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;

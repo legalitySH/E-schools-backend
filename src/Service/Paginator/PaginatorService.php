@@ -10,7 +10,9 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 
 /**
  * @template T
+ *
  * @implements PaginatorServiceInterface<T>
+ *
  * @extends AbstractPaginator<T>
  */
 final class PaginatorService extends AbstractPaginator implements PaginatorServiceInterface
@@ -23,6 +25,7 @@ final class PaginatorService extends AbstractPaginator implements PaginatorServi
      * @param class-string $entityClass
      * @param int $page
      * @param int $limit
+     *
      * @return Paginator<T>
      */
     public function paginate(string $entityClass, int $page, int $limit): Paginator

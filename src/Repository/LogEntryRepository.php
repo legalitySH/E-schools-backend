@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\LogEntry;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-class LogEntryRepository extends ServiceEntityRepository
+/** @extends AbstractRepository<LogEntry> */
+final class LogEntryRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

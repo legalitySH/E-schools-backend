@@ -18,13 +18,13 @@ class ApplicationSenderDetails
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $position = null;
+    private string $position;
 
     #[ORM\Column(length: 255)]
-    private ?string $fullName = null;
+    private string $fullName;
 
     #[ORM\Column(length: 32)]
-    private ?string $phoneNumber = null;
+    private string $phoneNumber;
 
     public function getId(): ?int
     {
@@ -38,7 +38,7 @@ class ApplicationSenderDetails
         return $this;
     }
 
-    public function getPosition(): ?string
+    public function getPosition(): string
     {
         return $this->position;
     }
@@ -50,7 +50,7 @@ class ApplicationSenderDetails
         return $this;
     }
 
-    public function getFullName(): ?string
+    public function getFullName(): string
     {
         return $this->fullName;
     }
@@ -62,7 +62,7 @@ class ApplicationSenderDetails
         return $this;
     }
 
-    public function getPhoneNumber(): ?string
+    public function getPhoneNumber(): string
     {
         return $this->phoneNumber;
     }

@@ -8,9 +8,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('/api/user', name: 'user_ ')]
 final class LogoutController extends AbstractController
 {
-    #[Route('api/logout')]
+    #[Route('/logout', name: 'logout', methods: ['POST'])]
     public function logout(): Response
     {
         $response = new Response();
