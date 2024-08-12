@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\ApplicationSenderDetails;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<ApplicationSenderDetails>
- */
-class ApplicationSenderDetailsRepository extends ServiceEntityRepository
+/** @extends AbstractRepository<ApplicationSenderDetails> */
+final class ApplicationSenderDetailsRepository extends AbstractRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
