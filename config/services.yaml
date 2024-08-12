@@ -56,3 +56,6 @@ services:
         arguments:
             $applicationRepository: '@App\Repository\EducationalApplicationRepository'
             $institutionRepository: '@App\Repository\EducationalInstitutionRepository'
+    App\Service\Institution\InstitutionService:
+        arguments:
+            $institutionTypesRepository: '@App\Repository\InstitutionTypeRepository'
