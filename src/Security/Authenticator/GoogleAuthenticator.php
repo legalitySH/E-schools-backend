@@ -56,6 +56,7 @@ final class GoogleAuthenticator extends AbstractAuthenticator
                 $user->setEmail($resourceOwner->getEmail() ?? '');
                 $user->setUsername($resourceOwner->getName());
                 $user->setClientId($resourceOwner->getId());
+                $user->setAvatarUrl($resourceOwner->getAvatar() ?? User::DEFAULT_AVATAR_URL);
 
                 $this->repository->save($user);
 
