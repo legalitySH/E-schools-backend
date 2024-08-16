@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/application', name: 'application_', methods: ['PATCH'])]
+#[Route('/api/applications', name: 'application_', methods: ['PATCH'])]
 final class ApplicationReviewController extends AbstractController
 {
     /** @param ApplicationReviewService $reviewService */
