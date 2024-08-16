@@ -38,6 +38,7 @@ final class UserController extends AbstractController
             'username' => $user->getUsername(),
             'role' => $user->getRoles(),
             'email' => $user->getEmail(),
+            'avatar' => $user->getAvatarUrl()
         ];
     }
 }
