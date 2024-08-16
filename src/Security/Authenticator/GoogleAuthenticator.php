@@ -7,6 +7,7 @@ namespace App\Security\Authenticator;
 use App\Entity\User;
 use App\Repository\Api\RepositoryInterface;
 use App\Repository\UserRepository;
+use App\Service\JwtTokenProvider\Api\JwtTokenProviderInterface;
 use App\Service\JwtTokenProvider\JwtTokenProvider;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use League\OAuth2\Client\Provider\GoogleUser;
@@ -27,7 +28,7 @@ final class GoogleAuthenticator extends AbstractAuthenticator
      */
     public function __construct(
         private readonly ClientRegistry $clientRegistry,
-        protected readonly JwtTokenProvider $tokenProvider,
+        protected readonly JwtTokenProviderInterface $tokenProvider,
         private readonly RepositoryInterface $repository
     ) {
         parent::__construct($this->tokenProvider);
