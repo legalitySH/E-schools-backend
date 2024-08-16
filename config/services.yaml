@@ -4,7 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-
+    app.google_drive_auth_config: '%kernel.project_dir%/config/secret/GoogleDrive/auth_config.json'
+    app.google_drive_access_credentials: '%kernel.project_dir%/config/secret/GoogleDrive/access.json'
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -59,3 +60,7 @@ services:
     App\Service\Institution\InstitutionService:
         arguments:
             $institutionTypesRepository: '@App\Repository\InstitutionTypeRepository'
+    App\Service\Cloud\GoogleDrive\GoogleDriveServiceProvider:
+        arguments:
+            $authConfigFilePath: '%app.google_drive_auth_config%'
+            $accessCredentialsFilePath: '%app.google_drive_access_credentials%'
