@@ -37,6 +37,7 @@ phpcs.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+/config/secret/*
 
 # AWS User-specific
 .idea/**/aws.xml
