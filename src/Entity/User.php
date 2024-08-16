@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_CLIENT_ID', fields: ['clientId'])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const DEFAULT_AVATAR_URL = 'https://guppros.ru/image/avatar.png';
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -45,6 +46,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'Your password must be at least {{ limit }} characters long',
     )]
     private ?string $plainPassword = null;
+
+    #[ORM\Column(nullable: true)]
+    private string $avatarUrl = self::DEFAULT_AVATAR_URL;
+
+    public function getAvatarUrl(): string
+    {
+        return $this->avatarUrl;
+    }
+
+    public function setAvatarUrl(string $avatarUrl): void
+    {
+        $this->avatarUrl = $avatarUrl;
+    }
 
     public function getPlainPassword(): ?string
     {
