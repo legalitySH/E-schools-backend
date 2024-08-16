@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20240809111729 extends AbstractMigration
+final class Version20240816120255 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,17 +20,13 @@ final class Version20240809111729 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE UNIQUE INDEX UC_SENDER_PHONE_NUMBER ON application_sender_details (phone_number)');
-        $this->addSql('CREATE UNIQUE INDEX UC_DIRECTOR_EMAIL ON directors_details (email)');
-        $this->addSql('CREATE UNIQUE INDEX UC_DIRECTOR_PHONE_NUMBER ON directors_details (phone_number)');
+        $this->addSql('ALTER TABLE users ADD avatar_url VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('DROP INDEX UC_SENDER_PHONE_NUMBER');
-        $this->addSql('DROP INDEX UC_DIRECTOR_EMAIL');
-        $this->addSql('DROP INDEX UC_DIRECTOR_PHONE_NUMBER');
+        $this->addSql('ALTER TABLE "users" DROP avatar_url');
     }
 }
