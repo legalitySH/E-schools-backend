@@ -44,4 +44,10 @@ final class UserService implements UserServiceInterface
     {
         return $this->passwordHasher->hashPassword($user, $user->getPlainPassword() ?? '');
     }
+
+    public function setAvatar(User $user, string $avatarUrl): void
+    {
+        $user->setAvatarUrl($avatarUrl);
+        $this->repository->save($user);
+    }
 }
