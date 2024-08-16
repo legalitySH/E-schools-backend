@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/institution', name: 'institution_', methods: ['GET'])]
+#[Route('/api/institutions', name: 'institution_', methods: ['GET'])]
 final class InstitutionTypeController extends AbstractController
 {
     public function __construct(
