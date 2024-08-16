@@ -51,7 +51,7 @@ final class ApplicationCreatorService implements ApplicationCreatorServiceInterf
     public function validate(EducationalApplication $application): void
     {
         if (
-            $this->directorRepository->isExists('email', $application->getDirector()->getEmail()) &&
+            $this->directorRepository->isExists('email', $application->getDirector()->getEmail()) ||
             $this->directorRepository->isExists('phoneNumber', $application->getDirector()->getPhoneNumber())
         ) {
             throw new DirectorExistsException();
