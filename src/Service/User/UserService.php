@@ -6,20 +6,15 @@ namespace App\Service\User;
 
 use App\Dto\User\RegisterUserDto;
 use App\Entity\User;
-use App\Repository\Api\RepositoryInterface;
-use App\Repository\UserRepository;
+use App\Repository\Api\UserRepositoryInterface;
 use App\Service\User\Api\UserServiceInterface;
 use App\Service\User\Exception\UserExistsException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 final class UserService implements UserServiceInterface
 {
-    /**
-     * @param UserRepository $repository
-     * @param UserPasswordHasherInterface $passwordHasher
-     */
     public function __construct(
-        private readonly RepositoryInterface $repository,
+        private readonly UserRepositoryInterface $repository,
         private readonly UserPasswordHasherInterface $passwordHasher,
     ) {
     }
@@ -33,7 +28,7 @@ final class UserService implements UserServiceInterface
         $user->setPassword($hashedPassword);
         $user->eraseCredentials();
 
-        if ($this->repository->isExists('email', $user->getEmail() ?? '')) {
+        if ($this->repository->isExists($user->getEmail() ?? '')) {
             throw new UserExistsException();
         }
 
