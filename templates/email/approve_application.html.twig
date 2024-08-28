@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to E-schools - Your Application is Approved</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap');
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            background-color: rgb(30 64 175);
+            color: #ffffff;
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .email-body {
+            padding: 40px 30px;
+            color: #000000;
+        }
+        .email-body p {
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .email-body a {
+            color: #325fe0;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: 1px solid #325fe0;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 40px 0;
+        }
+        .email-footer {
+            background-color: rgb(30 64 175);
+            color: #ffffff;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .email-footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h1>Welcome to E-schools!</h1>
+    </div>
+    <div class="email-body">
+        <p>Dear {{ institution.title }} Team,</p>
+        <p>Congratulations! We are pleased to inform you that your application to join <strong>E-schools</strong> has been approved. We are excited to have your institution on board as part of our growing educational community.</p>
+        <p>To get started, please complete the profile setup for your institution's director using the link below:</p>
+        <p style="text-align: center;">
+            <a href="{{ link }}" class="cta-button">Complete Director Profile</a>
+        </p>
+        <p>Once the profile is complete, your institution will gain full access to the platform and all its features, enabling you to start creating and managing courses for your students.</p>
+        <p>If you have any questions or need assistance, feel free to reach out to our support team at <a class="support" href="mailto:support@eschools.com">support@eschools.com</a>.</p>
+        <p>We look forward to supporting your institution's educational goals.</p>
+        <p>Best regards,<br>The E-schools Team</p>
+    </div>
+    <div class="email-footer">
+        <p>&copy; {{ "now"|date("Y") }} E-schools. All rights reserved.</p>
+        <p>You are receiving this email because your application was approved on our platform.</p>
+    </div>
+</div>
+</body>
+</html>

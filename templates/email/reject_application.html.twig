@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Status - E-schools</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;500;600&display=swap');
+        body {
+            font-family: 'Prompt', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .email-header {
+            background-color: rgb(30 64 175);
+            color: #ffffff;
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        .email-body {
+            padding: 40px 30px;
+            color: #333333;
+        }
+        .email-body p {
+            margin: 20px 0;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .email-footer {
+            background-color: rgb(30 64 175);
+            color: #ffffff;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .email-footer p {
+            margin: 5px 0;
+        }
+        a {
+            color: #325fe0;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <div class="email-header">
+        <h1>Application Status - E-schools</h1>
+    </div>
+    <div class="email-body">
+        <p>Dear {{ institution.title }} Team,</p>
+        <p>Thank you for your interest in joining <strong>E-schools</strong>—the platform dedicated to electronic and remote learning. We appreciate the time and effort you put into your application.</p>
+        <p>Unfortunately, after careful review, we regret to inform you that your application has not been approved at this time.</p>
+        <p>The primary reason(s) for this decision:</p>
+        <ul>
+            <li>{{ reason }}</li>
+        </ul>
+        <p>We encourage you to review the feedback and consider reapplying in the future if the situation changes.</p>
+        <p>If you have any questions or need further clarification, please do not hesitate to contact us at <a href="mailto:support@eschools.com">support@eschools.com</a>.</p>
+        <p>Thank you once again for considering E-schools.</p>
+        <p>Best regards,<br>The E-schools Team</p>
+    </div>
+    <div class="email-footer">
+        <p>&copy; {{ "now"|date("Y") }} E-schools. All rights reserved.</p>
+        <p>You are receiving this email because you applied to join our platform.</p>
+    </div>
+</div>
+</body>
+</html>
