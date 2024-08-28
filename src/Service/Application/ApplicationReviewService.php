@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Service\Application;
 
 use App\Entity\EducationalApplication;
-use App\Repository\Api\RepositoryInterface;
+use App\Repository\Api\EducationalApplicationRepositoryInterface;
+use App\Repository\Api\EducationalInstitutionRepositoryInterface;
 use App\Repository\EducationalApplicationRepository;
 use App\Repository\EducationalInstitutionRepository;
 use App\Service\Application\Api\ApplicationReviewServiceInterface;
@@ -19,8 +20,8 @@ final class ApplicationReviewService implements ApplicationReviewServiceInterfac
      * @param EducationalInstitutionRepository $institutionRepository
      */
     public function __construct(
-        private readonly RepositoryInterface $applicationRepository,
-        private readonly RepositoryInterface $institutionRepository,
+        private readonly EducationalApplicationRepositoryInterface $applicationRepository,
+        private readonly EducationalInstitutionRepositoryInterface $institutionRepository,
     ) {
     }
 
