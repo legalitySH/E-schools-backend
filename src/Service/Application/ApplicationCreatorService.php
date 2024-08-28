@@ -5,7 +5,11 @@ declare(strict_types=1);
 namespace App\Service\Application;
 
 use App\Entity\EducationalApplication;
-use App\Repository\Api\RepositoryInterface;
+use App\Repository\Api\ApplicationSenderDetailsRepositoryInterface;
+use App\Repository\Api\BaseRepositoryInterface;
+use App\Repository\Api\DirectorRepositoryInterface;
+use App\Repository\Api\EducationalApplicationRepositoryInterface;
+use App\Repository\Api\EducationalInstitutionRepositoryInterface;
 use App\Repository\ApplicationSenderDetailsRepository;
 use App\Repository\DirectorRepository;
 use App\Repository\EducationalApplicationRepository;
@@ -17,17 +21,11 @@ use App\Service\Application\Exception\SenderExistsException;
 
 final class ApplicationCreatorService implements ApplicationCreatorServiceInterface
 {
-    /**
-     * @param EducationalApplicationRepository $applicationRepository
-     * @param DirectorRepository $directorRepository
-     * @param ApplicationSenderDetailsRepository $senderDetailsRepository
-     * @param EducationalInstitutionRepository $institutionRepository
-     */
     public function __construct(
-        private readonly RepositoryInterface $applicationRepository,
-        private readonly RepositoryInterface $directorRepository,
-        private readonly RepositoryInterface $senderDetailsRepository,
-        private readonly RepositoryInterface $institutionRepository,
+        private readonly EducationalApplicationRepositoryInterface $applicationRepository,
+        private readonly DirectorRepositoryInterface $directorRepository,
+        private readonly ApplicationSenderDetailsRepositoryInterface $senderDetailsRepository,
+        private readonly EducationalInstitutionRepositoryInterface $institutionRepository,
     ) {
     }
 
@@ -50,18 +48,18 @@ final class ApplicationCreatorService implements ApplicationCreatorServiceInterf
      */
     public function validate(EducationalApplication $application): void
     {
-        if (
-            $this->directorRepository->isExists('email', $application->getDirector()->getEmail()) ||
-            $this->directorRepository->isExists('phoneNumber', $application->getDirector()->getPhoneNumber())
-        ) {
+        if ($this->directorRepository->isExists(
+            $application->getDirector()->getEmail(),
+            $application->getDirector()->getPhoneNumber()
+        )) {
             throw new DirectorExistsException();
         }
 
-        if ($this->senderDetailsRepository->isExists('phoneNumber', $application->getSender()->getPhoneNumber())) {
+        if ($this->senderDetailsRepository->isExists($application->getSender()->getPhoneNumber())) {
             throw new SenderExistsException();
         }
 
-        if ($this->institutionRepository->isExists('email', $application->getInstitution()->getEmail())) {
+        if ($this->institutionRepository->isExists($application->getInstitution()->getEmail())) {
             throw new InstitutionExistsException();
         }
     }
