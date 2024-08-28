@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/api/users/avatar', name: 'user_avatar_')]
+#[Route('/api/users/profile/avatar', name: 'user_avatar_')]
 final class UserAvatarSetController extends AbstractController
 {
     /**
