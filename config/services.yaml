@@ -24,42 +24,6 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
-    App\Service\Logger\DatabaseLogger:
-        arguments:
-            $logsRepository: '@App\Repository\LogEntryRepository'
-    App\Service\Paginator\PaginatorService:
-        arguments:
-            $entityManager: '@doctrine.orm.entity_manager'
-    app_clock_service:
-        class: App\Service\Clock\ClockService
-    App\Service\JwtTokenProvider\JwtTokenProvider:
-        arguments:
-            $refreshTokenGenerator: '@gesdinet.jwtrefreshtoken.refresh_token_generator'
-            $refreshTokenManager: '@gesdinet.jwtrefreshtoken.refresh_token_manager'
-            $jwtTokenManager: '@lexik_jwt_authentication.jwt_manager'
-            $clock: '@app_clock_service'
-    App\Security\Authenticator\GoogleAuthenticator:
-        arguments:
-            $clientRegistry: '@knpu.oauth2.registry'
-            $tokenProvider: '@App\Service\JwtTokenProvider\JwtTokenProvider'
-            $repository: '@App\Repository\UserRepository'
-    App\Service\User\UserService:
-        arguments:
-            $repository: '@App\Repository\UserRepository'
-            $passwordHasher: '@security.user_password_hasher'
-    App\Service\Application\ApplicationCreatorService:
-        arguments:
-            $applicationRepository: '@App\Repository\EducationalApplicationRepository'
-            $directorRepository: '@App\Repository\DirectorRepository'
-            $senderDetailsRepository: '@App\Repository\ApplicationSenderDetailsRepository'
-            $institutionRepository: '@App\Repository\EducationalInstitutionRepository'
-    App\Service\Application\ApplicationReviewService:
-        arguments:
-            $applicationRepository: '@App\Repository\EducationalApplicationRepository'
-            $institutionRepository: '@App\Repository\EducationalInstitutionRepository'
-    App\Service\Institution\InstitutionService:
-        arguments:
-            $institutionTypesRepository: '@App\Repository\InstitutionTypeRepository'
     App\Service\Cloud\GoogleDrive\GoogleDriveServiceProvider:
         arguments:
             $authConfigFilePath: '%app.google_drive_auth_config%'
