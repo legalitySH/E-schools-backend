@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Repository\Api\UserRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 
-/** @extends AbstractRepository<User> */
-final class UserRepository extends AbstractRepository implements PasswordUpgraderInterface
+/** @extends BaseRepository<User> */
+final class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
     public function __construct(
         ManagerRegistry $registry,
@@ -28,5 +28,10 @@ final class UserRepository extends AbstractRepository implements PasswordUpgrade
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function isExists(string $email): bool
+    {
+        return $this->findOneBy(['email' => $email]) !== null;
     }
 }

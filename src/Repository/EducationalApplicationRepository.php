@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Repository;
 
 use App\Entity\EducationalApplication;
+use App\Repository\Api\EducationalApplicationRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
-/** @extends AbstractRepository<EducationalApplication> */
-final class EducationalApplicationRepository extends AbstractRepository
+/** @extends BaseRepository<EducationalApplication> */
+final class EducationalApplicationRepository extends BaseRepository implements EducationalApplicationRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
