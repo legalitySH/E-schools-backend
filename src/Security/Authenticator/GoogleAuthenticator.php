@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Security\Authenticator;
 
 use App\Entity\User;
-use App\Repository\Api\RepositoryInterface;
+use App\Repository\Api\BaseRepositoryInterface;
+use App\Repository\Api\UserRepositoryInterface;
 use App\Repository\UserRepository;
 use App\Service\JwtTokenProvider\Api\JwtTokenProviderInterface;
 use App\Service\JwtTokenProvider\JwtTokenProvider;
@@ -21,15 +22,10 @@ final class GoogleAuthenticator extends AbstractAuthenticator
 {
     public const SERVICE_NAME = 'google';
 
-    /**
-     * @param ClientRegistry $clientRegistry
-     * @param JwtTokenProvider $tokenProvider
-     * @param UserRepository $repository
-     */
     public function __construct(
         private readonly ClientRegistry $clientRegistry,
         protected readonly JwtTokenProviderInterface $tokenProvider,
-        private readonly RepositoryInterface $repository
+        private readonly UserRepositoryInterface $repository
     ) {
         parent::__construct($this->tokenProvider);
     }
@@ -56,7 +52,6 @@ final class GoogleAuthenticator extends AbstractAuthenticator
                 $user->setEmail($resourceOwner->getEmail() ?? '');
                 $user->setUsername($resourceOwner->getName());
                 $user->setClientId($resourceOwner->getId());
-                $user->setAvatarUrl($resourceOwner->getAvatar() ?? User::DEFAULT_AVATAR_URL);
 
                 $this->repository->save($user);
 
